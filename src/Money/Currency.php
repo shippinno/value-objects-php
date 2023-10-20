@@ -3,7 +3,7 @@
 namespace Tanigami\ValueObjects\Money;
 
 use InvalidArgumentException;
-use Symfony\Component\Intl\Intl;
+use Symfony\Component\Intl\Currencies;
 
 /**
  * @method static Currency aed
@@ -215,7 +215,7 @@ class Currency
     public static function __callStatic(string $name, array $arguments): Currency
     {
         $isoCode = strtoupper($name);
-        $name = Intl::getCurrencyBundle()->getCurrencyName($isoCode);
+        $name = Currencies::getName($isoCode);
         if (null === $name) {
             throw new InvalidArgumentException(sprintf('Invalid currency code: %s', $isoCode));
         }
